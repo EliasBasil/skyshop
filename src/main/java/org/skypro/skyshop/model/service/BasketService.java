@@ -23,11 +23,10 @@ public class BasketService {
     }
 
     public void addProduct(UUID id) {
-        Optional<Product> optionalProduct = getProductById(id);
+        Optional<Product> optionalProduct = Optional.ofNullable(getProductById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Product doesn't exist")));
         if (optionalProduct.isPresent()) {
             productBasket.addProduct(id);
-        } else {
-            throw new IllegalArgumentException("Product doesn't exist");
         }
     }
 

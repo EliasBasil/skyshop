@@ -17,12 +17,7 @@ public class ProductBasket {
     }
 
     public void addProduct(UUID id) {
-        int quantity = 0;
-        if (basket.containsKey(id)) {
-            quantity = basket.get(id);
-        }
-        basket.remove(id);
-        basket.put(id, quantity + 1);
+        basket.merge(id, 1, Integer::sum);
     }
 
     public Map<UUID, Integer> getBasket() {

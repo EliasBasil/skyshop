@@ -48,7 +48,7 @@ public class ShopController {
             basketService.addProduct(id);
             return "*Продукт успешно добавлен*";
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            System.out.println(e);
         }
         return "*Такого продукта нет*";
     }
