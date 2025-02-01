@@ -6,6 +6,7 @@ import org.skypro.skyshop.model.product.Product;
 import org.skypro.skyshop.model.service.BasketService;
 import org.skypro.skyshop.model.service.SearchService;
 import org.skypro.skyshop.model.service.StorageService;
+import org.skypro.skyshop.util.NoSuchProductException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -44,13 +45,8 @@ public class ShopController {
 
     @GetMapping("/basket/{id}")
     public String addProduct(@PathVariable("id") UUID id) {
-        try {
-            basketService.addProduct(id);
-            return "*Продукт успешно добавлен*";
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-        }
-        return "*Такого продукта нет*";
+        basketService.addProduct(id);
+        return "*Продукт успешно добавлен*";
     }
 
     @GetMapping("/basket")
