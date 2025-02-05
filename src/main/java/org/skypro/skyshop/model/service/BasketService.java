@@ -4,6 +4,7 @@ import org.skypro.skyshop.model.basket.BasketItem;
 import org.skypro.skyshop.model.basket.ProductBasket;
 import org.skypro.skyshop.model.basket.UserBasket;
 import org.skypro.skyshop.model.product.Product;
+import org.skypro.skyshop.util.NoSuchProductException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class BasketService {
 
     public void addProduct(UUID id) {
         Optional<Product> optionalProduct = Optional.ofNullable(getProductById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Product doesn't exist")));
+                .orElseThrow(NoSuchProductException::new));
         if (optionalProduct.isPresent()) {
             productBasket.addProduct(id);
         }
