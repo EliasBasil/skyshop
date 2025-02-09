@@ -24,7 +24,7 @@ public class BasketService {
     }
 
     public void addProduct(UUID id) {
-        Optional<Product> optionalProduct = Optional.ofNullable(getProductById(id)
+        Optional<Product> optionalProduct = Optional.ofNullable(storageService.getProductById(id)
                 .orElseThrow(NoSuchProductException::new));
         if (optionalProduct.isPresent()) {
             productBasket.addProduct(id);
@@ -37,9 +37,5 @@ public class BasketService {
                 .map(p -> new BasketItem(storageService.getProductStorage().get(p.getKey()), p.getValue()))
                 .collect(Collectors.toList());
         return new UserBasket(basketItems);
-    }
-
-    public Optional<Product> getProductById(UUID id) {
-        return Optional.ofNullable(storageService.getProductStorage().get(id));
     }
 }
