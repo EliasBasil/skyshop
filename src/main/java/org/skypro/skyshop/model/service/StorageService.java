@@ -25,6 +25,10 @@ public class StorageService {
         return productStorage;
     }
 
+    public Optional<Product> getProductById(UUID id) {
+        return Optional.ofNullable(productStorage.get(id));
+    }
+
     public Map<UUID, Article> getArticleStorage() {
         return articleStorage;
     }
@@ -68,5 +72,16 @@ public class StorageService {
         articleStorage.put(yetAnotherCheeseArticle.getId(), yetAnotherCheeseArticle);
         articleStorage.put(tomatoArticle.getId(), tomatoArticle);
         articleStorage.put(milkArticle.getId(), milkArticle);
+    }
+
+    public void clearStorage() {
+        for (Iterator<Map.Entry<UUID, Product>> iterator = productStorage.entrySet().iterator(); iterator.hasNext(); ) {
+            Map.Entry<UUID, Product> entry = iterator.next();
+            iterator.remove();
+        }
+        for (Iterator<Map.Entry<UUID, Article>> iterator = articleStorage.entrySet().iterator(); iterator.hasNext(); ) {
+            Map.Entry<UUID, Article> entry = iterator.next();
+            iterator.remove();
+        }
     }
 }
